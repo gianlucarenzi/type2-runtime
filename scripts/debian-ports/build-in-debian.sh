@@ -22,6 +22,11 @@ apt-get install -y --no-install-recommends \
     meson ninja-build autoconf automake libtool \
     libzstd-dev zlib1g-dev libmimalloc-dev systemd-dev
 
+# meson installs libfuse into /usr/lib64, which pkg-config and gcc of Debian
+# (multiarch: /usr/lib/<triplet>) do not search
+export PKG_CONFIG_PATH=/usr/lib64/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+export LIBRARY_PATH=/usr/lib64${LIBRARY_PATH:+:$LIBRARY_PATH}
+
 bash scripts/common/install-dependencies.sh
 
 # mimalloc only when Debian has its static library
