@@ -144,7 +144,9 @@ jobs:
         KEYRING=debian-ports-archive-keyring_2026.02.04_all.deb
         curl -fsSLO https://deb.debian.org/debian/pool/main/d/debian-ports-archive-keyring/$KEYRING
         dpkg-deb -x $KEYRING keyring
+        # the keyring goes into the system too, for its apt-get update
         sudo debootstrap --arch=${{ matrix.debian_arch }} --variant=minbase \
+          --include=debian-ports-archive-keyring \
           --keyring=$PWD/keyring/usr/share/keyrings/debian-ports-archive-keyring.gpg \
           sid rootfs http://ftp.ports.debian.org/debian-ports
         sudo tar -C rootfs -c . | docker import --platform ${{ matrix.platform }} - debian-ports

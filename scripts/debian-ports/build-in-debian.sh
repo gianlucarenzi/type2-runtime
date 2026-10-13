@@ -6,6 +6,9 @@
 # libfuse and squashfuse come from source as for the other architectures
 # (scripts/common/install-dependencies.sh), zstd and zlib from Debian.
 #
+# (systemd-dev: the udev.pc that the build of libfuse reads, without systemd itself,
+# whose maintainer scripts crash under QEMU)
+#
 # Usage (as root, in the repository, e.g. in a container):
 #   bash scripts/debian-ports/build-in-debian.sh
 # The runtime is written into out/.
@@ -17,7 +20,7 @@ apt-get update
 apt-get install -y --no-install-recommends \
     bash ca-certificates wget file patch xz-utils make gcc libc6-dev pkg-config \
     meson ninja-build autoconf automake libtool \
-    libzstd-dev zlib1g-dev libmimalloc-dev udev
+    libzstd-dev zlib1g-dev libmimalloc-dev systemd-dev
 
 bash scripts/common/install-dependencies.sh
 
