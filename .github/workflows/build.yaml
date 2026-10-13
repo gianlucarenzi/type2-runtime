@@ -37,6 +37,9 @@ jobs:
         - appimage_arch: riscv64
           runner: ubuntu-24.04
           qemu: true
+        - appimage_arch: ppc64le
+          runner: ubuntu-24.04
+          qemu: true
 
     runs-on: ${{ matrix.runner }}
 
@@ -44,7 +47,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v7
 
-    # GitHub has no RISC-V runners: the build container runs emulated
+    # GitHub has no RISC-V and POWER runners: the build container runs emulated
     - name: Set up QEMU
       if: ${{ matrix.qemu }}
       uses: docker/setup-qemu-action@v4
