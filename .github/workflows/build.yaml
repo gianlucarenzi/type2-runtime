@@ -34,12 +34,20 @@ jobs:
           runner: ubuntu-24.04-arm
         - appimage_arch: aarch64
           runner: ubuntu-24.04-arm
+        - appimage_arch: riscv64
+          runner: ubuntu-24.04
+          qemu: true
 
     runs-on: ${{ matrix.runner }}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v7
+
+    # GitHub has no RISC-V runners: the build container runs emulated
+    - name: Set up QEMU
+      if: ${{ matrix.qemu }}
+      uses: docker/setup-qemu-action@v3
 
     - name: Get git hash
       run: |
