@@ -1,6 +1,8 @@
 alpine-*
 miniroot/
 out/
+# filled by scripts/common/download-with-gh.sh
+scripts/common/downloads/
 
 # Prerequisites
 *.d
